@@ -1,7 +1,6 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 import { ApiConfig } from '../config/api.config';
-import { resolve } from 'dns';
-import { rejects } from 'assert';
+
 
 export default function api(
     path: string,
@@ -50,7 +49,7 @@ export default function api(
     });
 
 }   
-interface ApiResponse{
+export interface ApiResponse{
     status: 'ok' | 'error' | 'login';
     data: any;
 
@@ -89,13 +88,13 @@ interface ApiResponse{
         
     
    
-    function getToken(): string {
+   export function getToken(): string {
     const token = localStorage.getItem('api_token');
 
     return 'Berer ' + token;
     }
 
-    function saveToken(token: string){
+   export  function saveToken(token: string){
     localStorage.setItem('api_token', token);
 
     }
@@ -104,7 +103,7 @@ interface ApiResponse{
         const token = localStorage.getItem('api_refresh_token');
         return token + '';
     }
-    function saveRefreshToken(token: string){
+    export function saveRefreshToken(token: string){
         localStorage.setItem('api_refresh_token', token);
     }
 
@@ -128,12 +127,13 @@ interface ApiResponse{
     
             };
     
-           const refreshTokenResponse: { data: { token: string | undefined } } = await axios(refreshTokenRequestData);
+           const rtr: { data: { token: string | undefined } } = await axios(refreshTokenRequestData);
 
-           if(!refreshTokenRequestData.data.token){
-                return null;
-           }
-           return refreshTokenRequestData.data.token;
+           if (!rtr.data.token) {
+            return null;
+        }
+    
+        return rtr.data.token;
     }
 
 async function repeatRequest(
