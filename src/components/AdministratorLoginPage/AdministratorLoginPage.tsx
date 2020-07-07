@@ -1,10 +1,10 @@
-import React from 'react';
-import { Container, Card, Form, Button, Col, Alert } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import api, { ApiResponse, saveToken, saveRefreshToken } from '../../api/api';
-import { Redirect } from 'react-router-dom';
-import RoledMainMenu from '../RoledMainMenu/RoledMainMenu';
+import React from "react";
+import { Container, Card, Form, Button, Col, Alert } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import api, { ApiResponse, saveToken, saveRefreshToken, saveUsername } from '../../api/api';
+import { Redirect } from "react-router-dom";
+import RoledMainMenu from "../RoledMainMenu/RoledMainMenu";
 
 interface AdministratorLoginPageState {
     username: string;
@@ -23,57 +23,50 @@ export default class AdministratorLoginPage extends React.Component {
             username: '',
             password: '',
             errorMessage: '',
-            isLoggedIn: false,
+            isLoggedIn: false
         }
     }
 
-    private formInputChanged(event: React.ChangeEvent<HTMLInputElement>) {
+    private formInputChanged(event: React.ChangeEvent<HTMLInputElement>){
         const newState = Object.assign(this.state, {
-            [ event.target.id ]: event.target.value,
+            [ event.target.id ]: event.target.value
         });
 
         this.setState(newState);
     }
 
-    private setErrorMessage(message: string) {
+    private setErrorMessage(message: string){
         const newState = Object.assign(this.state, {
-            errorMessage: message,
+            errorMessage: message
         });
 
         this.setState(newState);
     }
 
-    private setLogginState(isLoggedIn: boolean) {
+    private setLoginState(isLoggedIn: boolean) {
         const newState = Object.assign(this.state, {
-            isLoggedIn: isLoggedIn,
+            isLoggedIn: isLoggedIn
         });
 
         this.setState(newState);
     }
 
     private doLogin() {
-        api(
-            'auth/administrator/login',
-            'post',
-            {
-                username: this.state.username,
-                password: this.state.password,
-            }
-        )
-        .then((res: ApiResponse) => {
+        api('auth/administrator/login', 'post', {
+            username: this.state.username,
+            password: this.state.password
+        }).then((res: ApiResponse) => {
             if (res.status === 'error') {
-                this.setErrorMessage('System error... Try again!');
-
+                this.setErrorMessage('System error, try again.');
                 return;
             }
 
             if (res.status === 'ok') {
-                if ( res.data.statusCode !== undefined ) {
+                if ( res.data.statusCode !== undefined) {
                     let message = '';
-
                     switch (res.data.statusCode) {
-                        case -3001: message = 'Unkwnon username!'; break;
-                        case -3002: message = 'Bad password!'; break;
+                        case -3001: message = 'Unknown username.'; break;
+                        case -3002: message = 'Bad password.'; break;
                     }
 
                     this.setErrorMessage(message);
@@ -81,56 +74,57 @@ export default class AdministratorLoginPage extends React.Component {
                     return;
                 }
 
-                saveToken( res.data.token);
-                saveRefreshToken( res.data.refreshToken);
-                
+                saveToken(res.data.token);
+                saveRefreshToken(res.data.refreshToken);
+                saveUsername(res.data.username);
 
-                this.setLogginState(true);
+                this.setLoginState(true);
+
             }
+
         });
     }
 
     render() {
         if (this.state.isLoggedIn === true) {
             return (
-                <Redirect to="/auth/administrator/dashboard" />
+                <Redirect to="/" />
             );
         }
 
         return (
             <Container>
-                <RoledMainMenu role="visitor" />
-
-                <Col md={ { span: 6, offset: 3 } }>
+                <RoledMainMenu role='visitor' />
+                <Col md={ { span: 6, offset: 3 } } >
                     <Card>
                         <Card.Body>
                             <Card.Title>
-                                <FontAwesomeIcon icon={ faSignInAlt } /> Administrator Login
+                                <FontAwesomeIcon icon= { faSignInAlt } /> Administrator login
                             </Card.Title>
-                            <Form>
-                                <Form.Group>
-                                    <Form.Label htmlFor="username">Username:</Form.Label>
-                                    <Form.Control type="text" id="username"
-                                                    value={ this.state.username }
-                                                    onChange={ event => this.formInputChanged(event as any) } />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label htmlFor="password">Password:</Form.Label>
-                                    <Form.Control type="password" id="password"
-                                                    value={ this.state.password }
-                                                    onChange={ event => this.formInputChanged(event as any) } />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Button variant="primary"
-                                            onClick={ () => this.doLogin() }>
-                                        Log in
-                                    </Button>
-                                </Form.Group>
-                            </Form>
-                            <Alert variant="danger"
-                                   className={ this.state.errorMessage ? '' : 'd-none' }>
-                                { this.state.errorMessage }
-                            </Alert>
+                                <Form>
+                                    <Form.Group>
+                                        <Form.Label htmlFor="username">Username: </Form.Label>
+                                        <Form.Control type="text" id="username"
+                                        value={ this.state.username }
+                                        onChange={ event => this.formInputChanged(event as any) } />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label htmlFor="password">Password: </Form.Label>
+                                        <Form.Control type="password" id="password"
+                                        value={ this.state.password }
+                                        onChange={ event => this.formInputChanged(event as any) } />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Button variant="primary"
+                                                onClick={ () => this.doLogin() }>
+                                            Login
+                                        </Button>
+                                    </Form.Group>
+                                </Form>
+                                <Alert variant="danger"
+                                        className={ this.state.errorMessage ? '' : 'd-none' }>
+                                    { this.state.errorMessage }
+                                </Alert>
                         </Card.Body>
                     </Card>
                 </Col>

@@ -1,8 +1,8 @@
-import React from 'react';
-import { MainMenuItem, MainMenu } from '../MainMenu/MainMenu';
+import React from "react";
+import { MainMenuItem, MainMenu } from "../MainMenu/MainMenu";
 
 interface RoledMainMenuProperties {
-    role:  'administrator' | 'visitor';
+    role: 'administrator' | 'visitor';
 }
 
 export default class RoledMainMenu extends React.Component<RoledMainMenuProperties> {
@@ -10,30 +10,28 @@ export default class RoledMainMenu extends React.Component<RoledMainMenuProperti
         let items: MainMenuItem[] = [];
 
         switch (this.props.role) {
-            case 'visitor'       : items = this.getVisitorMenuItems(); break;
-            
-            case 'administrator' : items = this.getAdministratorMenuItems(); break;
+            case 'visitor': items = this.getVisitorMenuItems(); break;
+            case 'administrator': items = this.getAdministratorMenuItems(); break;
         }
 
-        
-
         return <MainMenu items={ items }  />
-    }
 
-    
+        
+    }
 
     getAdministratorMenuItems(): MainMenuItem[] {
         return [
-            new MainMenuItem("Dashboard", "/administrator/dashboard/"),
-            new MainMenuItem("Log out", "/administrator/logout/"),
+            new MainMenuItem("Home", "/"),
+            new MainMenuItem("Dashboard", "/administrator/dashboard"),
+            new MainMenuItem("Logout", "/administrator/logout")
         ];
     }
 
     getVisitorMenuItems(): MainMenuItem[] {
         return [
-            
-            new MainMenuItem("Administrator log in", "/auth/administrator/login/"),
+            new MainMenuItem("Home", "/"),
+            new MainMenuItem("Contact", "/contact"),
+            new MainMenuItem("Login", "/auth/administrator/login")
         ];
     }
-
 }
