@@ -14,7 +14,7 @@ import ContactPage from './components/ContactPage/ContactPage';
 import AdministratorLoginPage from './components/AdministratorLoginPage/AdministratorLoginPage';
 import AdministratorDashboard from './components/AdministratorDashbord/AdministratorDash';
 import AntikvitetPage from './components/AntikvitetPage/AntikvitetPage';
-
+import AdministratorDashboardAntikvitet from './components/AdministratorDashbordAntikvitet/AdministratorDashbordAntikvitet';
 
 
 
@@ -26,9 +26,10 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={ HomePage } />
         <Route path="/contact" component= { ContactPage } />
-        <Route path= "/antikvitet/:id" component= { AntikvitetPage }/> 
+        <Route path= "/api/antikvitet/:aId" component= { AntikvitetPage }/> 
         <Route path="/auth/administrator/login" component= {AdministratorLoginPage} />
         <Route exact path="/auth/administrator/dashboard" component= {AdministratorDashboard} />
+        <Route exact path="/auth/administrator/dashboard/antikvitet" component= { AdministratorDashboardAntikvitet } />
       </Switch>
       </HashRouter>
   </React.StrictMode>,

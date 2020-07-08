@@ -1,4 +1,5 @@
 export default interface ApiAntikvitetDto {
+    
     antikvitetId?: number;
     name?: string;
     year?: string;

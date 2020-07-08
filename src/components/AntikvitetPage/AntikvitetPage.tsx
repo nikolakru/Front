@@ -3,7 +3,7 @@ import { Container, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
 import AntikvitetType from '../../types/AntikvitetType';
-
+import RoledMainMenu  from '../RoledMainMenu/RoledMainMenu';
 
 
 interface AntikvitetPageProperties {
@@ -19,6 +19,15 @@ interface AntikvitetPageState {
     type?: AntikvitetType;
 }
 
+interface ApiAntikvitetDto{
+  antikvitetId: number;
+  name: string;
+  description: string;
+  photos: {
+    imagePath: string;
+  }[],
+}
+
 
 export default class AntikvitetPage extends React.Component<AntikvitetPageProperties>{
     state: AntikvitetPageState;
@@ -27,24 +36,26 @@ export default class AntikvitetPage extends React.Component<AntikvitetPageProper
 
         this.state = { };
     }
+    
 
     render(){
         return (
         <Container>
+          <RoledMainMenu role='visitor' />
           <Card>
             <Card.Body>
               <Card.Title>
-                    <FontAwesomeIcon icon = { faListAlt } /> {this.state.type?.name }
+                    <FontAwesomeIcon icon = { faListAlt } />
               </Card.Title>
               <Card.Text>
-                ovde ce biti antikviteti
+                antikviteti
               </Card.Text>
             </Card.Body>
           </Card>
         </Container>
         );
     }
-    componentWillMount(){
+    
         
-    }
+    
 }

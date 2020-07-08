@@ -88,7 +88,7 @@ export default class AdministratorLoginPage extends React.Component {
     render() {
         if (this.state.isLoggedIn === true) {
             return (
-                <Redirect to="/" />
+                <Redirect to="/auth/administrator/dashboard" />
             );
         }
 

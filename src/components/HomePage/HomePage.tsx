@@ -102,7 +102,12 @@ class HomePage extends React.Component {
                   <FontAwesomeIcon icon={ faList } /> Lista antikviteta
               </Card.Title>
               <Row>
-              {this.state.antikvitets.map(this.singleAntikvitet) }
+                <Col   lg="3" md="4" xs="12" className="mb-3">
+                  Filteri ce ici ovde
+                </Col>
+               
+                {this.state.antikvitets.map(this.singleAntikvitet) }
+               
               </Row>
               
             </Card.Body>
