@@ -48,7 +48,7 @@ class AdministratorDashboard extends React.Component {
     render() {
         if (this.state.isAdministratorLoggedIn === false) {
             return (
-                <Redirect to="/administrator/dashbord" />
+                <Redirect to="/auth/administrator/dashbord" />
             );
         }
 
@@ -63,9 +63,9 @@ class AdministratorDashboard extends React.Component {
                         </Card.Title>
 
                         <ul>
-                            <li><Link to="/administrator/dashboard/category/">Categories</Link></li>
+                            
                             <li><Link to="/administrator/dashboard/feature/">Features</Link></li>
-                            <li><Link to="/administrator/dashboard/article/">Articles</Link></li>
+                            <li><Link to="/auth/administrator/dashboard/antikvitet/">Antikvitet</Link></li>
                         </ul>
                     </Card.Body>
                 </Card>

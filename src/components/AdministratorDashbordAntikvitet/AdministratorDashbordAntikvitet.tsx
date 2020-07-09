@@ -263,7 +263,7 @@ class AdministratorDashbordAntikvitet extends React.Component {
         this.setAddModalStringFieldState('name', '');
         this.setAddModalStringFieldState('imagePath', '');
         this.setAddModalStringFieldState('message', '');
-        this.setAddModalNumberFieldState('parentCategoryId', 'null');
+        
         this.setAddModalVisibleState(true);
     }
 
