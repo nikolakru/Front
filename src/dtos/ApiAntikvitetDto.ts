@@ -10,8 +10,8 @@ export default interface ApiAntikvitetDto {
         ingredient: number;
     };
     photos?: {
-        
-        imagePath: string
+        photoId: number;
+        imagePath: string;
     };
 
 

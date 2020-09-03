@@ -33,7 +33,7 @@ export default class RoledMainMenu extends React.Component<RoledMainMenuProperti
             new MainMenuItem("Home", "/"),
             new MainMenuItem("Contact", "/contact"),
             new MainMenuItem("Login", "/auth/administrator/login"),
-            new MainMenuItem("Antikvitet","api/antikvitet/:aId")
+            
         ];
     }
 }
